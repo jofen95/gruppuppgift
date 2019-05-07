@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -29,15 +30,23 @@ public class GruppServer {
         
     Class.forName("com.mysql.cj.jdbc.Driver");
     Properties p = new Properties();
-    p.load(new FileInputStream("/grupparbetet/src/java/GruppServer/settings.properties"));
+    p.load(new FileInputStream("/Users/Joel/grupparbetet/src/java/GruppServer/settings.properties"));
     try(Connection con = DriverManager.getConnection(p.getProperty("connection"), p.getProperty("username"), p.getProperty("password"));)
         {
          Statement stmt = con.createStatement();
 
-        ResultSet rs = stmt.executeQuery("Select id from jordfuktighetsensor");
+        ResultSet rs = stmt.executeQuery("Select id,value,sensorname,created from Jordfuktighetssensor");
         while(rs.next()){
             id = rs.getInt("id");
+            float value = rs.getFloat("value");
+            String sensorname = rs.getString("sensorname");
+            Timestamp time = rs.getTimestamp("created");
+            
             System.out.print(id);
+            System.out.print(value);
+            System.out.print(sensorname);
+            System.out.print(time);
+           
         }
         }
         catch(SQLException e){
