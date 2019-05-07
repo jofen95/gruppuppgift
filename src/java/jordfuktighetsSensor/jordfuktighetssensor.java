@@ -16,6 +16,9 @@ public class jordfuktighetssensor implements Serializable {
         this.SensorId = SensorId;
         this.SensorValue = SensorValue;
         this.time = time;
+        // hej hej
+        
+        
     }
     public int getSensorId() {
         return SensorId;
